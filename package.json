@@ -1,0 +1,35 @@
+{
+  "name": "arc-aframe-movement",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "A-Frame components for ARCS enabled movement",
+  "repository": "https://github.com/arcs-vr/arc-vue-template",
+  "author": "Barthy Bonhomme <post@barthy.koeln>",
+  "private": false,
+  "keywords": [
+    "aframe",
+    "aframe-controls",
+    "ARCS",
+    "MQTT",
+    "proxy",
+    "remote",
+    "socket",
+    "VR",
+    "WebXR",
+    "WebVR",
+    "websocket",
+    "WebRTC"
+  ],
+  "main": "index.js",
+  "desktop": "index.js",
+  "devDependencies": {
+    "core-js": "^3",
+    "regenerator-runtime": "^0.13.5",
+    "eslint": "^7.5.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}
