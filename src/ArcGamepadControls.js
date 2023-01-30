@@ -29,16 +29,18 @@ export const ArcGamepadControls = {
     this.velocity = new THREE.Vector3(0, 0, 0)
 
     /**
-     * Normalized movement force
+     * Normalized movement y
      * @type {Number}
      */
-    this.force = 0
+    this.y = 0
+    this.ry = 0
 
     /**
-     * Movement direction in radians
+     * Movement direction in x
      * @type {Number}
      */
-    this.radians = 0
+    this.x = 0
+    this.rx = 0
 
     /**
      * Sprint multiplication factor
@@ -126,10 +128,18 @@ export const ArcGamepadControls = {
    * @param {CustomEvent} event
    */
   onJoystickMove (event) {
-    this.radians = event.detail ? event.detail.radians : 0
-    this.force = event.detail ? event.detail.force : 0
+    const { side, x, y } = event.detail
 
-    this.sprintFactor = this.force === 1 ? this.data.sprintFactor : 1
+    if (side === 1) {
+      this.rx = x
+      this.ry = y
+
+      return
+    }
+
+    this.x = x
+    this.y = y
+    this.sprintFactor = Math.abs(this.y) === 1 ? this.data.sprintFactor : 1
   },
 
   /**
@@ -157,7 +167,7 @@ export const ArcGamepadControls = {
    * @public
    */
   isVelocityActive () {
-    return this.enabled && this.force !== 0
+    return this.enabled && (this.y !== 0 || this.x !== 0 || this.rx !== 0 || this.ry || 0)
   },
 
   /**
@@ -172,14 +182,11 @@ export const ArcGamepadControls = {
       return this.velocity
     }
 
-    const scalarFactor = delta * 0.001 * this.force * this.sprintFactor * this.crouchFactor
+    const scalarFactor = delta * 0.001 * this.sprintFactor * this.crouchFactor
 
-    this.velocity.set(1, 0, 1)
-    this.velocity.applyAxisAngle(this.rotationAxis, this.radians)
-    this.velocity.normalize()
-
-    this.velocity.multiplyScalar(scalarFactor)
-
-    return this.velocity.clone()
+    return this.velocity
+      .set(this.x, 0, this.y)
+      .multiplyScalar(scalarFactor)
+      .clone()
   }
 }

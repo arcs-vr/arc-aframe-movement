@@ -102,6 +102,10 @@ export const ArcKeyboardControls = {
    * @param {KeyboardEvent} event
    */
   keyListener (event) {
+    if (!event.code) {
+      return
+    }
+
     const lowercaseKey = event.code.toLowerCase()
     switch (event.type) {
       case 'keydown':
