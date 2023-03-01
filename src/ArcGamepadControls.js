@@ -33,6 +33,11 @@ export const ArcGamepadControls = {
      * @type {Number}
      */
     this.y = 0
+
+    /**
+     * Normalized rotation y
+     * @type {Number}
+     */
     this.ry = 0
 
     /**
@@ -40,6 +45,11 @@ export const ArcGamepadControls = {
      * @type {Number}
      */
     this.x = 0
+
+    /**
+     * Movement rotation in x
+     * @type {Number}
+     */
     this.rx = 0
 
     /**
@@ -103,11 +113,15 @@ export const ArcGamepadControls = {
    * Activate remote event listeners and add joystick event listeners
    */
   arcsRemoteConnected () {
+    console.debug('[ArcGamepadControls] connected')
     window.addEventListener('stickmove', this.onJoystickMove)
     window.addEventListener('devicebump', this.onDeviceBump)
 
     this.el.sceneEl.emit('arc-remote-add-listener', {
-      events: ['stickmove']
+      events: [
+        'stickmove',
+        'devicebump'
+      ]
     })
 
     this.enabled = true
@@ -117,6 +131,7 @@ export const ArcGamepadControls = {
    * Remove joystick event listeners
    */
   arcsRemoteDisconnected () {
+    console.debug('[ArcGamepadControls] disconnected')
     window.removeEventListener('stickmove', this.onJoystickMove)
     window.removeEventListener('devicebump', this.onDeviceBump)
 

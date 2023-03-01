@@ -70,8 +70,12 @@ export const ArcKeyboardControls = {
    * Register 'keydown' listeners for 'arc-remotes'
    */
   arcsRemoteConnected () {
+    console.debug('[ArcKeyboardControls] connected')
     this.el.sceneEl.emit('arc-remote-add-listener', {
-      events: ['keydown', 'keyup']
+      events: [
+        'keydown',
+        'keyup'
+      ]
     })
   },
 
